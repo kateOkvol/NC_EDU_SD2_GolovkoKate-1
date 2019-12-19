@@ -1,0 +1,8 @@
+.in-row {
+  display: flex;
+  align-items: center;
+}
+
+.btn.btn-light {
+  margin-left: 20px;
+}

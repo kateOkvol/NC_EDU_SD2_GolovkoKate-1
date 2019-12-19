@@ -1,0 +1,1 @@
+ALTER TABLE "Questions" DROP COLUMN IF EXISTS "possible_answer";

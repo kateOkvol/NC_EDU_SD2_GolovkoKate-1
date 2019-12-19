@@ -1,0 +1,1 @@
+ALTER TABLE completed_polls DROP COLUMN IF EXISTS answers;

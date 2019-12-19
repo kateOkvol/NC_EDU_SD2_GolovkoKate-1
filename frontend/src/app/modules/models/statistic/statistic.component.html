@@ -1,0 +1,28 @@
+<div *ngIf="loader; else spinner">
+  <div class="container w-100 mt-5 mb-5 pl-5 pr-5" *ngFor="let question of pollModel.questions; let i = index">
+    <mat-card class="w-100 mb-5">
+      <mat-card-header class="mb-2">{{question.name}}</mat-card-header>
+      <mat-card-content *ngIf="statisticModels[i].dataList != null; else notExist">
+        <div class="results">
+          <ngx-charts-pie-chart class="pb-5"
+                                [results]="statisticModels[i].dataList"
+                                [view]="[550, 250]"
+                                [legend]="true"
+                                [explodeSlices]="false"
+                                [labels]="true"
+                                [doughnut]="false">
+          </ngx-charts-pie-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+<ng-template #spinner>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+<ng-template #notExist>
+  <mat-label>no statistic</mat-label>
+</ng-template>

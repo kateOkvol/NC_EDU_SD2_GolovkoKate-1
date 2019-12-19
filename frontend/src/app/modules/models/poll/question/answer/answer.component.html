@@ -1,0 +1,58 @@
+<div [ngSwitch]="questType" class="d-inline">
+  <ng-template ngSwitchCase="TEXT">
+    <ng-content *ngTemplateOutlet="TEXT"></ng-content>
+  </ng-template>
+  <ng-template ngSwitchCase="RADIO">
+    <ng-content *ngTemplateOutlet="RADIO"></ng-content>
+  </ng-template>
+  <ng-template ngSwitchCase="CHECKBOX">
+    <ng-content *ngTemplateOutlet="CHECKBOX"></ng-content>
+  </ng-template>
+</div>
+
+<ng-template #TEXT>
+  <mat-form-field ngDefaultControl class="w-75"
+                  *ngIf="pollType!=='COMPLETED'; else text">
+    <input matInput
+           type="text"
+           placeholder="your answer..."
+           [(ngModel)]="model.text"
+           [formControl]="answerText"
+           [disabled]="pollType==='DRAFT' || pollType==='NEW'">
+  </mat-form-field>
+</ng-template>
+
+<ng-template #RADIO>
+  <div>
+    <mat-radio-button ngDefaultControl
+                      [disabled]="pollType!=='PROCESSED'"
+                      [value]="model.isSelected"
+                      [checked]="model.isSelected"
+                      [(ngModel)]="model.isSelected">
+    </mat-radio-button>
+    <mat-form-field *ngIf="pollType==='DRAFT' || pollType==='NEW'; else text">
+      <input [(ngModel)]="model.text"
+             [formControl]="answerText"
+             matInput type="text" placeholder="your answer..." class="w-50">
+    </mat-form-field>
+  </div>
+</ng-template>
+
+<ng-template #CHECKBOX>
+  <div>
+    <mat-checkbox ngDefaultControl
+                  [disabled]="pollType!=='PROCESSED'"
+                  [(ngModel)]="model.isSelected">
+
+    </mat-checkbox>
+    <mat-form-field *ngIf="pollType==='DRAFT' || pollType==='NEW'; else text">
+      <input [(ngModel)]="model.text"
+             [formControl]="answerText"
+             matInput type="text" class="ml-2 w-50" placeholder="your answer...">
+    </mat-form-field>
+  </div>
+</ng-template>
+
+<ng-template #text>
+  {{model.text}}
+</ng-template>

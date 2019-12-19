@@ -1,0 +1,52 @@
+<div class="d-inline pl-5">
+  <mat-form-field class="w-50 pl-5"
+                  *ngIf="pollType==='DRAFT' || pollType==='NEW'; else name">
+    <input matInput placeholder="your question..."
+           [formControl]="questionText"
+           [(ngModel)]="model.name"
+           [required]="model.isRequired">
+  </mat-form-field>
+  <mat-form-field class="pl-5" *ngIf="pollType==='DRAFT' || pollType==='NEW'" ngDefaultControl>
+    <mat-label>select type</mat-label>
+    <mat-select placeholder="question type" [formControl]="type" [(ngModel)]="model.type"
+                (ngModelChange)="addFirstAnswer()">
+      <mat-option value="TEXT">Text</mat-option>
+      <mat-option value="RADIO">Radio button</mat-option>
+      <mat-option value="CHECKBOX">Checkbox</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox class="ml-2" [formControl]="isRequired"
+                [(ngModel)]="model.isRequired"
+                *ngIf="pollType==='DRAFT' || pollType==='NEW'">required
+  </mat-checkbox>
+  <br>
+  <div class="pl-5 ml-5">
+    <ng-content *ngTemplateOutlet="answerstempl"></ng-content>
+    <button *ngIf="(pollType==='DRAFT' || pollType==='NEW')&&
+            (model.type==='RADIO'||model.type==='CHECKBOX')&&
+             model.answers!=null"
+            class="btn btn-dark" (click)="addAnswer()">+
+    </button>
+  </div>
+</div>
+
+<ng-template #name>
+  <mat-card class="w-100">
+    <span *ngIf="model.isRequired" style="color: red">*</span>
+    {{model.name}}
+  </mat-card>
+</ng-template>
+
+<ng-template #answerstempl>
+  <mat-radio-group ngDefaultControl>
+  <div *ngFor="let answer of model.answers; let i = index" class="in-row">
+    <app-answer [questType]="model.type" [pollType]="pollType" [(model)]="answer"
+                class="w-75 mr-0" ngDefaultControl></app-answer>
+    <button *ngIf="model.answers.length !== 1 && (pollType==='DRAFT' || pollType==='NEW')"
+            class="btn btn-light"
+            (click)="deleteAnswer(i)">x
+    </button>
+  </div>
+  </mat-radio-group>
+</ng-template>
+

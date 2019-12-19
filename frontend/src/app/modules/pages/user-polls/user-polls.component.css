@@ -1,0 +1,12 @@
+.mat-paginator-range-label {
+  display: none;
+}
+.mat-header-cell {
+  background-color: #25262F;
+  color: lightgrey;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: gainsboro;
+}

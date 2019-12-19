@@ -1,0 +1,27 @@
+<mat-card class="container w-100 mt-5 pl-5 pr-5">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Questions">
+      <app-submitted-poll></app-submitted-poll>
+    </mat-tab>
+    <mat-tab *ngIf="userRole!=='ADMIN'" label="Answers">
+      <div class="container w-95 mt-1 pl-5 pr-5" *ngIf="loader; else spinner">
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="Statistic">
+            <app-statistic [pollModel]="pollModel" ngDefaultControl></app-statistic>
+          </mat-tab>
+          <mat-tab label="Particular user" *ngIf="loader; else spinner">
+            <mat-paginator [hidePageSize]="true"
+                           [pageSize]="1"
+                           (page)="updatePage($event)"
+                           [length]="surveyModels.length"></mat-paginator>
+            <app-survey [poll]="currentPoll" [pollType]="pollType"></app-survey>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
+<ng-template #spinner>
+  <mat-spinner></mat-spinner>
+</ng-template>

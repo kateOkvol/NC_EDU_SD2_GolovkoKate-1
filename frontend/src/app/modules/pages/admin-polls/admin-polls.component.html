@@ -1,0 +1,23 @@
+<div class="container w-65 mt-5 pl-5 pr-5">
+  <div class="container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Poll title</mat-header-cell>
+        <mat-cell *matCellDef="let poll">
+          <a (click)="showPoll(poll)"> <label>{{poll.title}}</label> </a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="info">
+        <mat-header-cell *matHeaderCellDef> Info</mat-header-cell>
+        <mat-cell *matCellDef="let poll">
+          <label>created by user id{{poll.userId}}</label>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="tableHeader"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableHeader;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="changePage()"></mat-paginator>
+  </div>
+</div>

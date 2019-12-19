@@ -1,0 +1,58 @@
+<div *ngIf="isLogin">
+  <mat-card class="w-75 container mt-5">
+    <mat-card-header class="mt-0 mb-3"
+                     *ngIf="role!=='ADMIN'; else header">Polls&Topics
+    </mat-card-header>
+    <div *ngIf="role!=='ADMIN'; else topic"
+         class="mt-3 ml-3 d-inline">
+      <a class="btn btn-sq-lg btn-outline-dark"
+         routerLink="/editor"><br>+</a>
+    </div>
+    <div class=" mt-3 ml-3 d-inline"
+         *ngFor="let topic of adminTopics">
+      <a class="btn btn-sq-lg btn-outline-dark ml-3"
+         (click)="redirect(topic)"><br>
+        <label class="btn-label">{{topic.name}}</label></a>
+    </div>
+  </mat-card>
+  <mat-card *ngIf="role!=='ADMIN'"
+            class="w-75 container mt-5 pt-3">
+    <mat-card-header class="mt-0 mb-3">Custom topics</mat-card-header>
+    <div class="mt-3 ml-3 d-inline">
+      <a class="btn btn-sq-lg btn-outline-dark"
+         (click)="createTopic()"><br>+</a>
+    </div>
+    <div *ngFor="let topic of userTopics"
+         class=" mt-3 ml-3 d-inline">
+      <a (click)="redirect(topic)"
+         class="btn btn-sq-lg btn-outline-dark ml-3"><br>
+        <label class="btn-label">{{topic.name}}</label></a>
+    </div>
+  </mat-card>
+</div>
+
+
+
+
+<div *ngIf="!isLogin" class="mt-5">
+  <div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <span class="display-1 d-block">Hello</span>
+          <div class="mb-4 lead">Sign up or log in</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #topic>
+  <div class="mt-3 ml-3 d-inline">
+    <a (click)="createTopic()" class="btn btn-sq-lg btn-outline-dark"><br>+</a>
+  </div>
+</ng-template>
+
+<ng-template #header>
+  <mat-card-header class="mt-0 mb-3">Topics</mat-card-header>
+</ng-template>

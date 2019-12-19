@@ -1,0 +1,18 @@
+<div>
+  <nav class="navbar navbar-expand-lg bg-dark">
+    <div class="navbar-header">
+      <a class="navbar-brand font" href="/">SurveySystem</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul *ngIf="isLogin" class="navbar-nav">
+        <li class="m-1"><a routerLink (click)="navigate()">Polls</a></li>
+        <li class="m-1"><a routerLink="/account">Account</a></li>
+      </ul>
+      <ul class="navbar-nav float-lg-right">
+        <li *ngIf="isLogin" class="float-right m-1"><a routerLink="/" (click)="logout()">Log out</a></li>
+        <li *ngIf="!isLogin" class="float-right m-1"><a routerLink="/login">Login</a></li>
+        <li *ngIf="!isLogin" class="float-right m-1"><a routerLink="/registration">Sign up</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>

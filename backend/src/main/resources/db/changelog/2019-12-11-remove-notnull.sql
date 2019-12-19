@@ -1,0 +1,9 @@
+ALTER TABLE questions_polls ALTER COLUMN poll_id DROP NOT NULL;
+ALTER TABLE questions_polls ALTER COLUMN question_id DROP NOT NULL;
+ALTER TABLE questions_topics ALTER COLUMN question_id DROP NOT NULL;
+ALTER TABLE questions_topics ALTER COLUMN topic_id DROP NOT NULL;
+ALTER TABLE polls ALTER COLUMN user_id DROP NOT NULL;
+ALTER TABLE completed_questions ALTER COLUMN completed_poll_id DROP NOT NULL;
+ALTER TABLE completed_questions ALTER COLUMN question_id DROP NOT NULL;
+ALTER TABLE completed_polls ALTER COLUMN poll_id DROP NOT NULL;
+ALTER TABLE topics ALTER COLUMN user_id DROP NOT NULL;

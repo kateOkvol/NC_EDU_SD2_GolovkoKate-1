@@ -1,0 +1,5 @@
+<div class="container w-100 mt-5 pl-5 pr-5">
+  <app-poll [pollType]="pollType" [(model)]="poll"></app-poll>
+  <button class="btn btn-primary float-lg-right"
+          *ngIf="pollType==='PROCESSED'" (click)="saveSurvey()">Submit</button>
+</div>

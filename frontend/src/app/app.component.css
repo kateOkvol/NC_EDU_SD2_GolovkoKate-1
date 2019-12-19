@@ -1,0 +1,8 @@
+a:hover {
+  cursor: pointer !important;
+}
+
+.in-row {
+  display: flex;
+  flex-direction: row;
+}

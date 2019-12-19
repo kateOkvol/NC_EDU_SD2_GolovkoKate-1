@@ -1,0 +1,41 @@
+<div class="container w-65 mt-5 pl-5 pr-5">
+  <div class="container mb-2">
+    <button class="btn btn-sq-lg btn-outline-dark d-inline" (click)="setDraft(true)">drafts</button>
+    <button class="btn btn-sq-lg btn-outline-dark ml-1" (click)="setDraft(false)">submitted</button>
+  </div>
+  <div class="container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+        <mat-cell *matCellDef="let poll">
+          <a *ngIf="isDraft; else submitted" (click)="editPoll(poll)">
+            <label>{{poll.title}}</label> </a>
+          <ng-template #submitted>
+            <a (click)="showCompletedPolls(poll)">{{poll.title}}</a>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <mat-header-cell *matHeaderCellDef> Link</mat-header-cell>
+        <mat-cell *matCellDef="let poll">
+          <a (click)="newTab(poll.link)"> {{poll.link}} </a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isDraft">
+        <mat-header-cell *matHeaderCellDef> Info</mat-header-cell>
+        <mat-cell *matCellDef="let poll">
+          <label *ngIf="poll.questions.length !== 1; else one">{{poll.questions.length}} questions</label>
+          <ng-template #one><label>1 question</label></ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableHeader"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableHeader;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[2, 5, 10, 20]" (page)="changePage($event)"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<form [formGroup]="pollForm">
+  <div class="container w-75 mt-5 pl-5 pr-5">
+    <button *ngIf="model.isDraft" (click)="deletePoll()"
+            [disabled]="pollForm.invalid"
+            class="btn btn-primary float-lg-right">Delete
+    </button>
+    <div>
+      <mat-form-field class="w-100" *ngIf="pollType==='DRAFT' || pollType==='NEW'; else title">
+        <input matInput placeholder="Title" formControlName="pollTitle"
+               [(ngModel)]="model.title">
+      </mat-form-field>
+    </div>
+    <br>
+    <mat-card>
+      <button *ngIf="pollType==='DRAFT' || pollType==='NEW'"
+              class="btn btn-primary" (click)="addQuestion()">+
+      </button>
+      <ng-content *ngTemplateOutlet="questionstempl"></ng-content>
+    </mat-card>
+    <br>
+    <div *ngIf="(pollType==='DRAFT' || pollType==='NEW') && !isTopic">
+      <button class="btn btn-primary float-lg-right"
+              [disabled]="pollForm.invalid" (click)="savePoll()">Submit</button>
+      <button class="btn btn-primary float-lg-right mr-2"
+              [disabled]="pollForm.invalid" (click)="saveDraft()">Draft</button>
+    </div>
+    <div *ngIf="isTopic">
+      <button class="btn btn-primary float-lg-right"
+              [disabled]="pollForm.invalid" (click)="saveTopic()">Submit topic</button>
+    </div>
+  </div>
+</form>
+
+<ng-template #title>
+  <mat-card class="w-100">
+    {{model.title}}
+  </mat-card>
+</ng-template>
+
+
+<ng-template #questionstempl>
+  <div *ngFor="let question of model.questions; let i = index">
+    <button *ngIf="model.questions.length !== 1 && (pollType==='DRAFT' || pollType==='NEW')"
+            class="btn btn-light float-lg-right"
+            (click)="deleteQuestion(i)">x
+    </button>
+    <app-question [model]="question" [pollType]="pollType"
+                  [formGroup]="pollForm" ngDefaultControl></app-question>
+  </div>
+</ng-template>
+

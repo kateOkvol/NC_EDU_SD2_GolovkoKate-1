@@ -1,0 +1,30 @@
+logging:
+  level:
+    liquibase: INFO
+    org:
+      springframework.web: ERROR
+#      hibernate:
+#        SQL: DEBUG
+#        type.descriptor.sql.BasicBinder: TRACE
+spring:
+  profiles:
+    active: dev
+  liquibase:
+    change-log: classpath:/db/changelog-master.yml
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/survey_app
+    username: survey_dev
+    password: nc19survey
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8080

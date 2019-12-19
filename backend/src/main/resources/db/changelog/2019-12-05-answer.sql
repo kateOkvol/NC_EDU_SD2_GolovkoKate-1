@@ -1,0 +1,1 @@
+ALTER TABLE answers DROP COLUMN IF EXISTS is_selected;
